@@ -72,10 +72,12 @@ def save_transcript_chunk(
     ended_at_seconds: float,
     confidence: float | None,
     estimated_speaker: bool = True,
+    language: str = "unknown",
 ) -> TranscriptChunk:
     chunk = TranscriptChunk(
         session_id=session_id,
         speaker_label=speaker_label,
+        language=language,
         text=text,
         started_at_seconds=started_at_seconds,
         ended_at_seconds=ended_at_seconds,

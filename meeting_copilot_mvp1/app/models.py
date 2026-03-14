@@ -37,6 +37,7 @@ class TranscriptChunk(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     session_id: Mapped[int] = mapped_column(ForeignKey("sessions.id"), index=True)
     speaker_label: Mapped[str] = mapped_column(String(100), default="Unknown Speaker")
+    language: Mapped[str] = mapped_column(String(20), default="unknown")
     text: Mapped[str] = mapped_column(Text)
     started_at_seconds: Mapped[float] = mapped_column(Float)
     ended_at_seconds: Mapped[float] = mapped_column(Float)

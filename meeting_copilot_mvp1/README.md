@@ -6,7 +6,8 @@ A local-first desktop meeting copilot MVP for Windows-first usage during Zoom, T
 
 - Fully local AI pipeline (Ollama + faster-whisper).
 - Windows-first system audio loopback capture, optional mic mixing.
-- Incremental transcription with timestamps and estimated speaker labels.
+- Incremental bilingual transcription (Arabic + English) with auto-detect and fallback retries (`auto -> ar -> en`).
+- Timestamps, estimated speaker labels, and per-segment detected language tags in live transcript view.
 - Rolling summaries every 60 seconds plus manual **Summarize Now**.
 - Structured meeting state for decisions, action items, risks, and questions.
 - SQLite persistence for sessions, chunks, summaries, and final report metadata.
@@ -86,6 +87,11 @@ meeting_copilot_mvp1/
    copy .env.example .env
    ```
 
+5. (Optional) tune bilingual language priority in `.env`:
+   ```powershell
+   WHISPER_LANGUAGE_PRIORITY=auto,ar,en
+   ```
+
 ## Install and prepare Ollama
 
 1. Install Ollama from official site.
@@ -130,6 +136,7 @@ streamlit run ui/streamlit_app.py
 - **No loopback device**: Audio driver may not expose loopback; app shows warning and cannot capture system audio.
 - **No microphone**: If optional mic is enabled and unavailable, app falls back to system audio only.
 - **Transcription inactive**: `faster-whisper` may be missing or model failed to load.
+- **Arabic/English recognition quality is weak**: keep `WHISPER_LANGUAGE_PRIORITY=auto,ar,en` and try a larger multilingual Whisper model (for example `small` or `medium`) if hardware allows.
 - **PDF export failure**: Verify write access to `data/exports`.
 - **Empty summaries**: Ensure transcript chunks are being produced and Ollama model exists.
 
@@ -137,6 +144,7 @@ streamlit run ui/streamlit_app.py
 
 - No official Zoom/Teams/Google Meet APIs.
 - Speaker labels are estimated from mixed audio segments only (`Speaker 1`, `Speaker 2`, `Unknown Speaker`).
+- Existing SQLite files from older MVP snapshots may need reset to pick up new transcript language column (`data/meetings.db`).
 - True participant attribution is not guaranteed without richer channel separation.
 - On some Windows setups, simultaneous loopback + mic can be unstable; app prioritizes loopback.
 

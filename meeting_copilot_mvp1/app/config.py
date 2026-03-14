@@ -20,6 +20,7 @@ class Settings(BaseSettings):
 
     whisper_model_size: str = "base"
     whisper_compute_type: str = "int8"
+    whisper_language_priority: str = "auto,ar,en"
     chunk_seconds: int = 5
     summary_interval_seconds: int = 60
 

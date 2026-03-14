@@ -124,6 +124,7 @@ class MeetingCopilotApp:
                         ended_at_seconds=seg["end"],
                         confidence=seg["confidence"],
                         estimated_speaker=seg.get("estimated_speaker", True),
+                        language=seg.get("language", "unknown"),
                     )
 
             self._maybe_rolling_summary()

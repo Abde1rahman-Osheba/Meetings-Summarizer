@@ -79,7 +79,7 @@ if st.session_state.session_id:
     with left:
         st.subheader("Live Transcript")
         transcript_lines = [
-            f"[{c.started_at_seconds:.1f}-{c.ended_at_seconds:.1f}] {c.speaker_label} ({'estimated' if c.estimated_speaker else 'direct'}): {c.text}"
+            f"[{c.started_at_seconds:.1f}-{c.ended_at_seconds:.1f}] {c.speaker_label} [{c.language}] ({'estimated' if c.estimated_speaker else 'direct'}): {c.text}"
             for c in chunks[-150:]
         ]
         st.text_area("Transcript", value="\n".join(transcript_lines), height=420)
