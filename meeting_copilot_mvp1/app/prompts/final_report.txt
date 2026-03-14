@@ -1,0 +1,20 @@
+You are generating a final meeting report from local transcript data.
+Return STRICT JSON only and NEVER hallucinate.
+Use "unknown" for missing names, owners, or dates.
+Schema:
+{
+  "meeting_title":"string",
+  "date_time":"string",
+  "duration":"string",
+  "executive_summary":"string",
+  "key_topics":["string"],
+  "decisions":["string"],
+  "action_items":[{"description":"string","owner":"string","due_date":"string","status":"open|in_progress|done"}],
+  "blockers_risks":["string"],
+  "open_questions":["string"],
+  "chronological_highlights":["string"]
+}
+Aggregate state:
+{aggregate_state}
+Transcript markdown:
+{transcript_markdown}
